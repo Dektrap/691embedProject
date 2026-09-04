@@ -1,0 +1,12 @@
+1. platfromio.ini config ข้างใน
+2. ui --> touch.cpp/touch.hpp
+3. ...\.pio\libdeps\esp32dev\lv_conf.h ไฟลนี้
+4. ...\.pio\libdeps\esp32dev\Arduino_GFX\src\display\Arduino_ILI9342.cpp สำหรับจอ 
+5. ...\src\main.cpp
+6. ...\.pio\libdeps\esp32dev\Arduino_GFX\src\databus\Arduino_ESP32SPI.h แก้บรรทัด 21 22 คอมเม้นบรรทัด ถ้ามีบัคชื่อ #include "esp32-hal-periman.h"
+                                                                                                                        ^~~~~~~~~~~~~~~~~~~~~
+7. ...\lib\ui\event.cpp และ event.h
+8. ...\.pio\libdeps\esp32dev\lv_conf.h บรรทัด 329 จาก 0 เป็น 1
+
+
+เอาไปใส่ในที่เดิมของไฟล์ใหม่เพื่อไม่ต้องตั้งค่าจอ
