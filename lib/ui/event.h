@@ -12,7 +12,10 @@
 extern "C"
 {
 #endif
+
     void event_handler(lv_event_t*e);
+    void smoke_check(lv_event_t*e);
+
 #ifdef __cplusplus
 }
 #endif
