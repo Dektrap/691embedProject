@@ -14,7 +14,9 @@ extern "C"
 #endif
 
     void event_handler(lv_event_t*e);
-    void smoke_check(lv_event_t*e);
+    void smoke_check();
+
+    void update_smoke_status(lv_timer_t *timer);
 
 #ifdef __cplusplus
 }
