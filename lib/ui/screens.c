@@ -22,95 +22,6 @@ lv_obj_t *tick_value_change_obj;
 // Screens
 //
 
-void create_screen_welcome_page() {
-    lv_obj_t *obj = lv_obj_create(0);
-    objects.welcome_page = obj;
-    lv_obj_set_pos(obj, 0, 0);
-    lv_obj_set_size(obj, 320, 240);
-    {
-        lv_obj_t *parent_obj = obj;
-        {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            lv_obj_set_pos(obj, 57, 112);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "Please scan your Student ID.");
-        }
-    }
-    
-    tick_screen_welcome_page();
-}
-
-void tick_screen_welcome_page() {
-}
-
-void create_screen_info_page() {
-    lv_obj_t *obj = lv_obj_create(0);
-    objects.info_page = obj;
-    lv_obj_set_pos(obj, 0, 0);
-    lv_obj_set_size(obj, 320, 240);
-    {
-        lv_obj_t *parent_obj = obj;
-        {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            lv_obj_set_pos(obj, 0, 0);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_obj_set_style_text_font(obj, &lv_font_montserrat_10, LV_PART_MAIN | LV_STATE_DEFAULT);
-            lv_label_set_text_static(obj, "info");
-        }
-        {
-            // home_bt
-            lv_obj_t *obj = lv_btn_create(parent_obj);
-            objects.home_bt = obj;
-            lv_obj_set_pos(obj, 225, 189);
-            lv_obj_set_size(obj, 61, 24);
-            lv_obj_set_style_bg_color(obj, lv_color_hex(0xaeb030), LV_PART_MAIN | LV_STATE_DEFAULT);
-            {
-                lv_obj_t *parent_obj = obj;
-                {
-                    lv_obj_t *obj = lv_label_create(parent_obj);
-                    lv_obj_set_pos(obj, 0, 0);
-                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text_static(obj, "HOME");
-                }
-            }
-        }
-        {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            lv_obj_set_pos(obj, 19, 73);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "User :");
-        }
-        {
-            // name_txet
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            objects.name_txet = obj;
-            lv_obj_set_pos(obj, 66, 73);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "Pariphan Junkunapas");
-        }
-        {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            lv_obj_set_pos(obj, 20, 104);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "Student ID :");
-        }
-        {
-            // ids_txet
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            objects.ids_txet = obj;
-            lv_obj_set_pos(obj, 119, 104);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "B6728922");
-        }
-    }
-    
-    tick_screen_info_page();
-}
-
-void tick_screen_info_page() {
-}
-
 void create_screen_home_page() {
     lv_obj_t *obj = lv_obj_create(0);
     objects.home_page = obj;
@@ -291,11 +202,100 @@ void create_screen_home_page() {
 void tick_screen_home_page() {
 }
 
+void create_screen_welcome_page() {
+    lv_obj_t *obj = lv_obj_create(0);
+    objects.welcome_page = obj;
+    lv_obj_set_pos(obj, 0, 0);
+    lv_obj_set_size(obj, 320, 240);
+    {
+        lv_obj_t *parent_obj = obj;
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            lv_obj_set_pos(obj, 57, 112);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "Please scan your Student ID.");
+        }
+    }
+    
+    tick_screen_welcome_page();
+}
+
+void tick_screen_welcome_page() {
+}
+
+void create_screen_info_page() {
+    lv_obj_t *obj = lv_obj_create(0);
+    objects.info_page = obj;
+    lv_obj_set_pos(obj, 0, 0);
+    lv_obj_set_size(obj, 320, 240);
+    {
+        lv_obj_t *parent_obj = obj;
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            lv_obj_set_pos(obj, 0, 0);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_text_font(obj, &lv_font_montserrat_10, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text_static(obj, "info");
+        }
+        {
+            // home_bt
+            lv_obj_t *obj = lv_btn_create(parent_obj);
+            objects.home_bt = obj;
+            lv_obj_set_pos(obj, 225, 189);
+            lv_obj_set_size(obj, 61, 24);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xaeb030), LV_PART_MAIN | LV_STATE_DEFAULT);
+            {
+                lv_obj_t *parent_obj = obj;
+                {
+                    lv_obj_t *obj = lv_label_create(parent_obj);
+                    lv_obj_set_pos(obj, 0, 0);
+                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+                    lv_label_set_text_static(obj, "HOME");
+                }
+            }
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            lv_obj_set_pos(obj, 19, 73);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "User :");
+        }
+        {
+            // name_txet
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.name_txet = obj;
+            lv_obj_set_pos(obj, 66, 73);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "Pariphan Junkunapas");
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            lv_obj_set_pos(obj, 20, 104);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "Student ID :");
+        }
+        {
+            // ids_txet
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.ids_txet = obj;
+            lv_obj_set_pos(obj, 119, 104);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "B6728922");
+        }
+    }
+    
+    tick_screen_info_page();
+}
+
+void tick_screen_info_page() {
+}
+
 typedef void (*tick_screen_func_t)();
 tick_screen_func_t tick_screen_funcs[] = {
+    tick_screen_home_page,
     tick_screen_welcome_page,
     tick_screen_info_page,
-    tick_screen_home_page,
 };
 void tick_screen(int screen_index) {
     if (screen_index >= 0 && screen_index < 3) {
@@ -395,7 +395,7 @@ void create_screens() {
     
     // Initialize screens
     // Create screens
+    create_screen_home_page();
     create_screen_welcome_page();
     create_screen_info_page();
-    create_screen_home_page();
 }

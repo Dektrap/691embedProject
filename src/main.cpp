@@ -25,6 +25,7 @@
  * #define LV_USE_DEMO_WIDGETS 1
  ******************************************************************************/
 #include "ui.h"
+#include "event.h"
 // #define DIRECT_MODE // Uncomment to enable full frame buffer
 
 /*******************************************************************************
@@ -121,8 +122,15 @@ void my_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
   }
 }
 
+#define MQ2_pin 34
+#define buzzerpin 26
+
+ // รอปรับค่า pin ตามที่ใช้งานจริง
+
 void setup()
 {
+  pinMode(MQ2_pin, INPUT);
+  pinMode(buzzerpin, OUTPUT);
   Serial.begin(115200);
   // Serial.setDebugOutput(true);
   // while(!Serial);
@@ -211,7 +219,8 @@ void setup()
 //    //delay(1000);
     
     ui_init();
-
+    lv_timer_create(update_smoke_status, 500, NULL);
+    
     Serial.println("Setup done");
   }
 }
@@ -219,7 +228,6 @@ void setup()
 void loop()
 {
 
-  
   lv_timer_handler(); /* let the GUI do its work */
 
 #ifdef DIRECT_MODE
