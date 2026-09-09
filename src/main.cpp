@@ -220,7 +220,9 @@ void setup()
     
     ui_init();
     lv_timer_create(update_smoke_status, 500, NULL);
-    
+    sensor_init();
+    lv_timer_create(update_dht_sensor, 2000, NULL);
+
     Serial.println("Setup done");
   }
 }

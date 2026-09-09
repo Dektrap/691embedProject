@@ -194,6 +194,14 @@ void create_screen_home_page() {
             lv_obj_set_style_text_font(obj, &lv_font_montserrat_10, LV_PART_MAIN | LV_STATE_DEFAULT);
             lv_label_set_text_static(obj, "home");
         }
+        {
+            // humi_val
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.humi_val = obj;
+            lv_obj_set_pos(obj, 228, 73);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "Text");
+        }
     }
     
     tick_screen_home_page();

@@ -30,6 +30,7 @@ typedef struct _objects_t {
     lv_obj_t *temp_val;
     lv_obj_t *smoke_popup;
     lv_obj_t *info_bt;
+    lv_obj_t *humi_val;
     lv_obj_t *home_bt;
     lv_obj_t *name_txet;
     lv_obj_t *ids_txet;
