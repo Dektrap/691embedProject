@@ -82,6 +82,11 @@ static lv_disp_draw_buf_t draw_buf;
 static lv_color_t *disp_draw_buf;
 static lv_disp_drv_t disp_drv;
 
+int LED1 = 25;  
+int *pLED1 = &LED1;
+int LED2 = 26;  
+int *pLED2 = &LED2;
+
 /* Display flushing */
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -110,6 +115,7 @@ void my_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
       /*Set the coordinates*/
       data->point.x = touch_last_x;
       data->point.y = touch_last_y;
+      Serial.printf("touch %d,%d\n", touch_last_x, touch_last_y);
     }
     else if (touch_released())
     {
@@ -131,6 +137,14 @@ void setup()
 {
   pinMode(MQ2_pin, INPUT);
   pinMode(buzzerpin, OUTPUT);
+   pinMode(25, OUTPUT);
+  pinMode(26, OUTPUT);
+  pinMode(33, OUTPUT);
+  digitalWrite(25, LOW);
+  digitalWrite(26, LOW);
+  digitalWrite(33, LOW);
+  pinMode(14, INPUT_PULLUP);
+  analogWriteResolution(10);
   Serial.begin(115200);
   // Serial.setDebugOutput(true);
   // while(!Serial);
@@ -220,6 +234,11 @@ void setup()
     
     ui_init();
     lv_timer_create(update_smoke_status, 500, NULL);
+
+    lv_obj_add_event_cb(objects.bt_led1, event_handler, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(objects.bt_led2, event_handler, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(objects.bt_led3, event_handler, LV_EVENT_VALUE_CHANGED, NULL);
+
     
     Serial.println("Setup done");
   }
