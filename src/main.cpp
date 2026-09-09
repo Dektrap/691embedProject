@@ -50,7 +50,7 @@
  ******************************************************************************/
 #include <Arduino_GFX_Library.h>
 
-#define GFX_BL DF_GFX_BL // default backlight pin, you may replace DF_GFX_BL to actual backlight pin
+//#define GFX_BL DF_GFX_BL // default backlight pin, you may replace DF_GFX_BL to actual backlight pin
 
 /* More dev device declaration: https://github.com/moononournation/Arduino_GFX/wiki/Dev-Device-Declaration */
 #if defined(DISPLAY_DEV_KIT)
@@ -58,9 +58,9 @@ Arduino_GFX *gfx = create_default_Arduino_GFX();
 #else /* !defined(DISPLAY_DEV_KIT) */
 
 
-#define GFX_BL 1
+#define GFX_BL 32
 Arduino_DataBus *bus = new Arduino_ESP32SPI(2,15,18,23,GFX_NOT_DEFINED);
-Arduino_GFX *gfx = new Arduino_ILI9341(bus,4,1);
+Arduino_GFX *gfx = new Arduino_ILI9342(bus,4,0);
 #define CANVAS
 
 

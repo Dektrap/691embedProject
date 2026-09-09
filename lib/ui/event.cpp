@@ -39,3 +39,8 @@ void update_smoke_status(lv_timer_t * timer)
     smoke_check();
 }
 
+void temp_check()
+{
+    Serial.println("Checking smoke value...");
+    
+}
