@@ -219,10 +219,20 @@ void setup()
 //    //delay(1000);
     
     ui_init();
-    lv_timer_create(update_smoke_status, 500, NULL);
-    sensor_init();
-    lv_timer_create(update_dht_sensor, 2000, NULL);
 
+    //  เริ่มต้นฮาร์ดแวร์ภายนอกและต่อ Wi-Fi
+    smartroom_hw_init();
+    init_wifi_network();
+
+    //  ผูก Event ปุ่มกดบนหน้าจอ
+    if (objects.fan_on) lv_obj_add_event_cb(objects.fan_on, event_fan_handler, LV_EVENT_CLICKED, NULL);
+    if (objects.fan_off) lv_obj_add_event_cb(objects.fan_off, event_fan_handler, LV_EVENT_CLICKED, NULL);
+
+    //  ลงทะเบียน Periodic Tasks ด้วย lv_timer
+    lv_timer_create(task_door_security, 100, NULL);        // สแกนบัตร/Ultrasonic ทุก 100ms
+    lv_timer_create(task_environment_update, 2000, NULL);   // สภาพแวดล้อม/ควัน ทุก 2 วินาที
+
+    send_line_message("🟢 Smart Room Controller ออนไลน์และพร้อมทำงานแล้ว");
     Serial.println("Setup done");
   }
 }
