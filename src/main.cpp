@@ -50,7 +50,7 @@
  ******************************************************************************/
 #include <Arduino_GFX_Library.h>
 
-#define GFX_BL DF_GFX_BL // default backlight pin, you may replace DF_GFX_BL to actual backlight pin
+//#define GFX_BL DF_GFX_BL // default backlight pin, you may replace DF_GFX_BL to actual backlight pin
 
 /* More dev device declaration: https://github.com/moononournation/Arduino_GFX/wiki/Dev-Device-Declaration */
 #if defined(DISPLAY_DEV_KIT)
@@ -58,9 +58,9 @@ Arduino_GFX *gfx = create_default_Arduino_GFX();
 #else /* !defined(DISPLAY_DEV_KIT) */
 
 
-#define GFX_BL 1
+#define GFX_BL 32
 Arduino_DataBus *bus = new Arduino_ESP32SPI(2,15,18,23,GFX_NOT_DEFINED);
-Arduino_GFX *gfx = new Arduino_ILI9341(bus,4,1);
+Arduino_GFX *gfx = new Arduino_ILI9342(bus,4,0);
 #define CANVAS
 
 
@@ -219,8 +219,20 @@ void setup()
 //    //delay(1000);
     
     ui_init();
-    lv_timer_create(update_smoke_status, 500, NULL);
-    
+
+    //  เริ่มต้นฮาร์ดแวร์ภายนอกและต่อ Wi-Fi
+    smartroom_hw_init();
+    init_wifi_network();
+
+    //  ผูก Event ปุ่มกดบนหน้าจอ
+    if (objects.fan_on) lv_obj_add_event_cb(objects.fan_on, event_fan_handler, LV_EVENT_CLICKED, NULL);
+    if (objects.fan_off) lv_obj_add_event_cb(objects.fan_off, event_fan_handler, LV_EVENT_CLICKED, NULL);
+
+    //  ลงทะเบียน Periodic Tasks ด้วย lv_timer
+    lv_timer_create(task_door_security, 100, NULL);        // สแกนบัตร/Ultrasonic ทุก 100ms
+    lv_timer_create(task_environment_update, 2000, NULL);   // สภาพแวดล้อม/ควัน ทุก 2 วินาที
+
+    send_line_message("🟢 Smart Room Controller ออนไลน์และพร้อมทำงานแล้ว");
     Serial.println("Setup done");
   }
 }

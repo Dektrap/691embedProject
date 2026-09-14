@@ -5,34 +5,41 @@
  * Capacitive touchscreen libraries
  * TouchLib: https://github.com/mmMicky/TouchLib.git
  ******************************************************************************/
+
 #include <Arduino.h>
 #include "touch.hpp"
-
 
 /* uncomment for XPT2046 */
 #define TOUCH_XPT2046
 #define TOUCH_XPT2046_SCK 18
 #define TOUCH_XPT2046_MISO 19
-#define TOUCH_XPT2046_MOSI 23
+#define TOUCH_XPT2046_MOSI 21
 #define TOUCH_XPT2046_CS 27
-// #define TOUCH_XPT2046_INT 3
+//#define TOUCH_XPT2046_INT 3
 #define TOUCH_XPT2046_ROTATION 0
 #define TOUCH_XPT2046_SAMPLES 50
 
  //uncomment for most capacitive touchscreen
-//  #define TOUCH_MODULES_GT911 // GT911 / CST_SELF / CST_MUTUAL / ZTW622 / L58 / FT3267 / FT5x06
-//  #define TOUCH_MODULE_ADDR GT911_SLAVE_ADDRESS1 // CTS328_SLAVE_ADDRESS / L58_SLAVE_ADDRESS / CTS826_SLAVE_ADDRESS / CTS820_SLAVE_ADDRESS / CTS816S_SLAVE_ADDRESS / FT3267_SLAVE_ADDRESS / FT5x06_ADDR / GT911_SLAVE_ADDRESS1 / GT911_SLAVE_ADDRESS2 / ZTW622_SLAVE1_ADDRESS / ZTW622_SLAVE2_ADDRESS
-//  #define TOUCH_SCL 4
-//  #define TOUCH_SDA 8
-//  #define TOUCH_RES 38
-//  #define TOUCH_INT 3
+ #define TOUCH_MODULES_GT911 // GT911 / CST_SELF / CST_MUTUAL / ZTW622 / L58 / FT3267 / FT5x06
+ #define TOUCH_MODULE_ADDR GT911_SLAVE_ADDRESS1 // CTS328_SLAVE_ADDRESS / L58_SLAVE_ADDRESS / CTS826_SLAVE_ADDRESS / CTS820_SLAVE_ADDRESS / CTS816S_SLAVE_ADDRESS / FT3267_SLAVE_ADDRESS / FT5x06_ADDR / GT911_SLAVE_ADDRESS1 / GT911_SLAVE_ADDRESS2 / ZTW622_SLAVE1_ADDRESS / ZTW622_SLAVE2_ADDRESS
+ #define TOUCH_SCL 4
+ #define TOUCH_SDA 8
+ #define TOUCH_RES 38
+ #define TOUCH_INT 3
 
 // Please fill below values from Arduino_GFX Example - TouchCalibration
-bool touch_swap_xy = false;
-int16_t touch_map_x1 = -1;
-int16_t touch_map_x2 = -1;
-int16_t touch_map_y1 = -1;
-int16_t touch_map_y2 = -1;
+//ตั้ง
+//bool touch_swap_xy = false;
+// int16_t touch_map_x1 = 3935;
+// int16_t touch_map_x2 = 170;
+// int16_t touch_map_y1 = 4029;
+// int16_t touch_map_y2 = 208;
+//นอน
+bool touch_swap_xy = true;
+int16_t touch_map_x1 = 4017;
+int16_t touch_map_x2 = 177;
+int16_t touch_map_y1 = 274;
+int16_t touch_map_y2 = 3987;
 
 int16_t touch_max_x = 320, touch_max_y = 240;
 int16_t touch_raw_x = 0, touch_raw_y = 0;

@@ -30,151 +30,19 @@ void create_screen_home_page() {
     {
         lv_obj_t *parent_obj = obj;
         {
-            // led1_bt
-            lv_obj_t *obj = lv_btn_create(parent_obj);
-            objects.led1_bt = obj;
-            lv_obj_set_pos(obj, 15, 35);
-            lv_obj_set_size(obj, 83, 42);
-            {
-                lv_obj_t *parent_obj = obj;
-                {
-                    lv_obj_t *obj = lv_label_create(parent_obj);
-                    lv_obj_set_pos(obj, 0, 0);
-                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text_static(obj, "On/Off");
-                }
-            }
-        }
-        {
-            // led2_bt
-            lv_obj_t *obj = lv_btn_create(parent_obj);
-            objects.led2_bt = obj;
-            lv_obj_set_pos(obj, 15, 105);
-            lv_obj_set_size(obj, 83, 42);
-            {
-                lv_obj_t *parent_obj = obj;
-                {
-                    lv_obj_t *obj = lv_label_create(parent_obj);
-                    lv_obj_set_pos(obj, 0, 0);
-                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text_static(obj, "On/Off");
-                }
-            }
-        }
-        {
-            // led3_bt
-            lv_obj_t *obj = lv_btn_create(parent_obj);
-            objects.led3_bt = obj;
-            lv_obj_set_pos(obj, 15, 179);
-            lv_obj_set_size(obj, 83, 43);
-            {
-                lv_obj_t *parent_obj = obj;
-                {
-                    lv_obj_t *obj = lv_label_create(parent_obj);
-                    lv_obj_set_pos(obj, 0, 0);
-                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text_static(obj, "On/Off");
-                }
-            }
-        }
-        {
-            // led1_st
-            lv_obj_t *obj = lv_led_create(parent_obj);
-            objects.led1_st = obj;
-            lv_obj_set_pos(obj, 128, 46);
-            lv_obj_set_size(obj, 20, 20);
-            lv_led_set_color(obj, lv_color_hex(0x0000ff));
-            lv_led_set_brightness(obj, 255);
-        }
-        {
-            // led2_st
-            lv_obj_t *obj = lv_led_create(parent_obj);
-            objects.led2_st = obj;
-            lv_obj_set_pos(obj, 128, 116);
-            lv_obj_set_size(obj, 20, 20);
-            lv_led_set_color(obj, lv_color_hex(0x0000ff));
-            lv_led_set_brightness(obj, 255);
-        }
-        {
-            // led3_st
-            lv_obj_t *obj = lv_led_create(parent_obj);
-            objects.led3_st = obj;
-            lv_obj_set_pos(obj, 128, 190);
-            lv_obj_set_size(obj, 20, 20);
-            lv_led_set_color(obj, lv_color_hex(0x0000ff));
-            lv_led_set_brightness(obj, 255);
-        }
-        {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            lv_obj_set_pos(obj, 208, 18);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "Temperature");
-        }
-        {
             // temp_val
             lv_obj_t *obj = lv_label_create(parent_obj);
             objects.temp_val = obj;
-            lv_obj_set_pos(obj, 238, 42);
+            lv_obj_set_pos(obj, 178, 48);
             lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "0");
-        }
-        {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            lv_obj_set_pos(obj, 277, 42);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "°C");
-        }
-        {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            lv_obj_set_pos(obj, 16, 18);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "led1");
-        }
-        {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            lv_obj_set_pos(obj, 16, 89);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "led2");
-        }
-        {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            lv_obj_set_pos(obj, 16, 163);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "led3");
-        }
-        {
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            lv_obj_set_pos(obj, 102, 18);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_label_set_text_static(obj, "Staus LED");
-        }
-        {
-            // smoke_popup
-            lv_obj_t *obj = lv_msgbox_create(parent_obj, "", "", 0, true);
-            objects.smoke_popup = obj;
-            lv_obj_set_pos(obj, 39, 70);
-            lv_obj_set_size(obj, 243, 100);
-            lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
-            lv_obj_set_style_bg_color(obj, lv_color_hex(0x541813), LV_PART_MAIN | LV_STATE_DEFAULT);
-            {
-                lv_obj_t *parent_obj = obj;
-                {
-                    lv_obj_t *obj = lv_label_create(parent_obj);
-                    lv_obj_set_pos(obj, 265, -74);
-                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    lv_label_set_text(obj, "WARNING: Smoke Detected!");
-                }
-            }
+            lv_label_set_text_static(obj, "Temp: --.- °C");
         }
         {
             // info_bt
             lv_obj_t *obj = lv_btn_create(parent_obj);
             objects.info_bt = obj;
-            lv_obj_set_pos(obj, 225, 189);
-            lv_obj_set_size(obj, 61, 24);
+            lv_obj_set_pos(obj, 267, 5);
+            lv_obj_set_size(obj, 48, 24);
             lv_obj_set_style_bg_color(obj, lv_color_hex(0xaeb030), LV_PART_MAIN | LV_STATE_DEFAULT);
             {
                 lv_obj_t *parent_obj = obj;
@@ -193,6 +61,247 @@ void create_screen_home_page() {
             lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
             lv_obj_set_style_text_font(obj, &lv_font_montserrat_10, LV_PART_MAIN | LV_STATE_DEFAULT);
             lv_label_set_text_static(obj, "home");
+        }
+        {
+            // humi_val
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.humi_val = obj;
+            lv_obj_set_pos(obj, 178, 66);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "Humi: --.- %");
+        }
+        {
+            // fan_on
+            lv_obj_t *obj = lv_btn_create(parent_obj);
+            objects.fan_on = obj;
+            lv_obj_set_pos(obj, 178, 163);
+            lv_obj_set_size(obj, 48, 30);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0x0beb12), LV_PART_MAIN | LV_STATE_DEFAULT);
+            {
+                lv_obj_t *parent_obj = obj;
+                {
+                    lv_obj_t *obj = lv_label_create(parent_obj);
+                    lv_obj_set_pos(obj, 0, 0);
+                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+                    lv_label_set_text_static(obj, "On");
+                }
+            }
+        }
+        {
+            // fan_state
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.fan_state = obj;
+            lv_obj_set_pos(obj, 178, 140);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "Fan: [ OFF ]");
+        }
+        {
+            // fan_off
+            lv_obj_t *obj = lv_btn_create(parent_obj);
+            objects.fan_off = obj;
+            lv_obj_set_pos(obj, 240, 163);
+            lv_obj_set_size(obj, 48, 30);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xf32121), LV_PART_MAIN | LV_STATE_DEFAULT);
+            {
+                lv_obj_t *parent_obj = obj;
+                {
+                    lv_obj_t *obj = lv_label_create(parent_obj);
+                    lv_obj_set_pos(obj, 0, 0);
+                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+                    lv_label_set_text_static(obj, "Off");
+                }
+            }
+        }
+        {
+            // door_status
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.door_status = obj;
+            lv_obj_set_pos(obj, 178, 85);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "DOOR: [ CLOSED ]");
+        }
+        {
+            // dist_val
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.dist_val = obj;
+            lv_obj_set_pos(obj, 178, 103);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "Dist: -- cm");
+        }
+        {
+            // smoke_val
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.smoke_val = obj;
+            lv_obj_set_pos(obj, 178, 119);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "Smoke: NORMAL");
+        }
+        {
+            // st_led1
+            lv_obj_t *obj = lv_led_create(parent_obj);
+            objects.st_led1 = obj;
+            lv_obj_set_pos(obj, 134, 68);
+            lv_obj_set_size(obj, 20, 20);
+            lv_led_set_color(obj, lv_color_hex(0xde0f0f));
+            lv_led_set_brightness(obj, 255);
+        }
+        {
+            // st_led2
+            lv_obj_t *obj = lv_led_create(parent_obj);
+            objects.st_led2 = obj;
+            lv_obj_set_pos(obj, 134, 117);
+            lv_obj_set_size(obj, 20, 20);
+            lv_led_set_color(obj, lv_color_hex(0xde0f0f));
+            lv_led_set_brightness(obj, 255);
+        }
+        {
+            // st_led3
+            lv_obj_t *obj = lv_led_create(parent_obj);
+            objects.st_led3 = obj;
+            lv_obj_set_pos(obj, 134, 164);
+            lv_obj_set_size(obj, 20, 20);
+            lv_led_set_color(obj, lv_color_hex(0xde0f0f));
+            lv_led_set_brightness(obj, 255);
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            lv_obj_set_pos(obj, 16, 48);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "led1");
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            lv_obj_set_pos(obj, 15, 95);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "led2");
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            lv_obj_set_pos(obj, 15, 142);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "led3");
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            lv_obj_set_pos(obj, 71, 48);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "Staus LED");
+        }
+        {
+            // bt_led1
+            lv_obj_t *obj = lv_switch_create(parent_obj);
+            objects.bt_led1 = obj;
+            lv_obj_set_pos(obj, 50, 69);
+            lv_obj_set_size(obj, 36, 18);
+            lv_obj_set_style_width(obj, 36, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_height(obj, 18, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xd1d0d0), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_grad_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_img_recolor(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.obj0 = obj;
+            lv_obj_set_pos(obj, 15, 70);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_width(obj, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_height(obj, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_text_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xd1d0d0), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_grad_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_img_recolor(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text_static(obj, "OFF");
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.obj1 = obj;
+            lv_obj_set_pos(obj, 93, 70);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_width(obj, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_height(obj, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_text_color(obj, lv_color_hex(0xdbdbdb), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_grad_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_img_recolor(obj, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text_static(obj, "ON");
+        }
+        {
+            // bt_led2
+            lv_obj_t *obj = lv_switch_create(parent_obj);
+            objects.bt_led2 = obj;
+            lv_obj_set_pos(obj, 50, 116);
+            lv_obj_set_size(obj, 36, 18);
+            lv_obj_set_style_width(obj, 36, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_height(obj, 18, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xd1d0d0), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_grad_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_img_recolor(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.obj2 = obj;
+            lv_obj_set_pos(obj, 15, 117);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_width(obj, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_height(obj, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_text_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xd1d0d0), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_grad_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_img_recolor(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text_static(obj, "OFF");
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.obj3 = obj;
+            lv_obj_set_pos(obj, 93, 117);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_width(obj, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_height(obj, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_text_color(obj, lv_color_hex(0xdbdbdb), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_grad_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_img_recolor(obj, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text_static(obj, "ON");
+        }
+        {
+            // bt_led3
+            lv_obj_t *obj = lv_switch_create(parent_obj);
+            objects.bt_led3 = obj;
+            lv_obj_set_pos(obj, 50, 166);
+            lv_obj_set_size(obj, 36, 18);
+            lv_obj_set_style_width(obj, 36, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_height(obj, 18, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xd1d0d0), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_grad_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_img_recolor(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.obj4 = obj;
+            lv_obj_set_pos(obj, 15, 167);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_width(obj, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_height(obj, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_text_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xd1d0d0), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_grad_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_img_recolor(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text_static(obj, "OFF");
+        }
+        {
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.obj5 = obj;
+            lv_obj_set_pos(obj, 93, 167);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_obj_set_style_width(obj, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_height(obj, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_text_color(obj, lv_color_hex(0xdbdbdb), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_grad_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_obj_set_style_bg_img_recolor(obj, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+            lv_label_set_text_static(obj, "ON");
         }
     }
     
@@ -214,6 +323,14 @@ void create_screen_welcome_page() {
             lv_obj_set_pos(obj, 57, 112);
             lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
             lv_label_set_text_static(obj, "Please scan your Student ID.");
+        }
+        {
+            // rfid_msg
+            lv_obj_t *obj = lv_label_create(parent_obj);
+            objects.rfid_msg = obj;
+            lv_obj_set_pos(obj, 102, 80);
+            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            lv_label_set_text_static(obj, "Scan your card...");
         }
     }
     

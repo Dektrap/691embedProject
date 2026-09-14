@@ -1,6 +1,6 @@
 {
   "navigation": {
-    "selectedUserPageObject": "[UIProject.eez-project]:/userPages/2",
+    "selectedUserPageObject": "[UIProject.eez-project]:/userPages/0",
     "subnavigationSelectedItems": {}
   },
   "layoutModel": {
@@ -68,6 +68,7 @@
           },
           {
             "type": "border",
+            "selected": 0,
             "location": "bottom",
             "children": [
               {
@@ -162,8 +163,7 @@
                       "enableClose": false,
                       "icon": "svg:hierarchy"
                     }
-                  ],
-                  "active": true
+                  ]
                 },
                 {
                   "type": "tabset",
@@ -209,12 +209,13 @@
                   "name": "home_page",
                   "component": "editor",
                   "config": {
-                    "objectPath": "[UIProject.eez-project]:/userPages/2",
+                    "objectPath": "[UIProject.eez-project]:/userPages/0",
                     "permanent": false
                   },
                   "icon": "svg:page"
                 }
-              ]
+              ],
+              "active": true
             },
             {
               "type": "row",
@@ -1064,12 +1065,25 @@
     "[UIProject.eez-project]:/userPages/0[flow-state]": {
       "selectionFront": {},
       "selectionBack": {
-        "0": {}
+        "0": {
+          "0": {},
+          "1": {},
+          "2": {},
+          "11": {},
+          "12": {},
+          "13": {},
+          "14": {},
+          "15": {},
+          "17": {},
+          "21": {
+            "$selected": true
+          }
+        }
       },
       "transform": {
         "translate": {
-          "x": -293.125,
-          "y": -174.35000000000002
+          "x": -281.875,
+          "y": -208.99999999999994
         },
         "scale": 1.75
       },
@@ -1083,7 +1097,12 @@
     "[UIProject.eez-project]:/userPages/1[flow-state]": {
       "selectionFront": {},
       "selectionBack": {
-        "0": {}
+        "0": {
+          "0": {},
+          "1": {
+            "$selected": true
+          }
+        }
       },
       "transform": {
         "translate": {
@@ -1103,13 +1122,10 @@
       "selectionFront": {},
       "selectionBack": {
         "0": {
-          "8": {},
-          "12": {},
-          "13": {
+          "3": {
             "$selected": true
           },
-          "14": {},
-          "15": {}
+          "5": {}
         }
       },
       "transform": {
@@ -1133,6 +1149,7 @@
   "searchMatchWholeWord": false,
   "replaceEnabled": false,
   "replaceText": "",
+  "pageRuntimeFrontFace": true,
   "breakpoints": {},
   "watchExpressions": [],
   "showComponentDescriptions": true,
@@ -1141,11 +1158,12 @@
   "lvglPart": "MAIN",
   "lvglState": "DEFAULT",
   "lvglExpandedPropertiesGroup": [
-    "TEXT"
+    "TEXT",
+    "BACKGROUND"
   ],
   "showInactiveFlowsInDebugger": true,
   "globalFlowZoom": true,
   "flowZoom": 1.75,
   "implementationLanguage": "C",
-  "openDialogDefaultPath": "D:\\WorkSut\\691embedProject\\lib\\ui"
+  "openDialogDefaultPath": "C:\\Users\\User\\Desktop\\691embedProject\\lib\\ui"
 }
