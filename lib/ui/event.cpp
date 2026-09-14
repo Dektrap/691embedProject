@@ -1,12 +1,5 @@
 #include "event.h"
-#include <Arduino.h>
-#include <DHT.h>
-#include <SPI.h>
-#include <MFRC522.h>
-#include <ESP32Servo.h>
-#include <WiFi.h>
-#include <HTTPClient.h>
-#include <WiFiClientSecure.h>
+
 
 // --- ข้อมูล Wi-Fi และ LINE API ---
 const char* WIFI_SSID     = "Free";
@@ -31,6 +24,73 @@ static DHT dht(DHTPIN, DHTTYPE);
 static MFRC522 rfid(PIN_RFID_SS, PIN_RFID_RST);
 static Servo doorServo;
 
+std::vector<Student> studentList; //เก็บรายชื่อจาก csv
+
+void smartroom_hw_init() {
+    pinMode(PIN_TRIG, OUTPUT);
+    pinMode(PIN_ECHO, INPUT);
+    pinMode(PIN_RELAY_FAN, OUTPUT);
+    pinMode(PIN_BUZZER, OUTPUT);
+    digitalWrite(PIN_RELAY_FAN, LOW);
+    digitalWrite(PIN_BUZZER, LOW);
+
+    dht.begin();
+    SPI.begin();
+    rfid.PCD_Init();
+    doorServo.attach(PIN_SERVO);
+    doorServo.detach(); // ป้องกันเซอร์โว 360 หมุนค้างตอนเปิดเครื่อง
+}
+
+void load_csv() {
+    File file = LittleFS.open("/student.csv", "r");
+    if (!file) {
+        Serial.println("Failed to open students.csv");
+        return; // ยกเลิกการทำงานของฟังก์ชันนี้ทันที
+    }
+    while (file.available()) {
+        String line = file.readStringUntil('\n');
+        line.trim(); // ลบ whitespace และ newline
+        if (line.length() == 0) continue;
+        int firstComma = line.indexOf(',');
+        int secondComma = line.indexOf(',', firstComma + 1);
+        if (firstComma >0 && secondComma > 0){
+            Student s_data;
+            s_data.rfid_uid = line.substring(0, firstComma);
+            s_data.student_id = line.substring(firstComma + 1, secondComma);
+            s_data.name = line.substring(secondComma + 1);
+            s_data.is_checked_in = false; // ยังไม่ได้เช็คชื่อ 
+            studentList.push_back(s_data);
+        }
+    }
+    file.close();
+}
+
+Student* scanRFID() {
+    if (!rfid.PICC_IsNewCardPresent() /**มีบัตรมาแตะหรือไม่**/|| !rfid.PICC_ReadCardSerial()/**มี uid ในบัตรไหม**/) 
+    {
+        return nullptr; // ไม่มีบัตรใหม่
+    }
+    String rfid_uid = ""; //อ่านค่า uid
+    for (byte i = 0; i < rfid.uid.size; i++) {
+        rfid_uid += String(rfid.uid.uidByte[i] < 0x10 ? "0" : "");
+        rfid_uid += String(rfid.uid.uidByte[i], HEX);
+    }
+    rfid_uid.toUpperCase(); // แปลงเป็นตัวพิมพ์ใหญ่เพื่อความสอดคล้องกับ CSV
+    rfid.PICC_HaltA(); // กันสแกนเบิ้ล
+    for (int i = 0; i < studentList.size(); i++) {
+        if (studentList[i].rfid_uid == rfid_uid) { // ถ้ารหัส UID ตรงกัน
+            
+            Serial.println("UID: " + rfid_uid);
+            Serial.println("Name: " + studentList[i].name);
+            Serial.println("Student ID: " + studentList[i].student_id);
+            // คืนค่าตำแหน่งหน่วยความจำ (Pointer) ของนักศึกษาคนนี้กลับไปให้ main.cpp เอาไปใช้งานต่อ
+            return &studentList[i]; 
+        }
+    }
+    Serial.println("Unknown Card UID: " + rfid_uid);
+    return nullptr; // ไม่พบนักศึกษาที่ตรงกับบัตร
+}
+
 // กำหนด UID ของบัตรที่อนุญาต (นำบัตรจริงมาสแกนดู UID บน Serial Monitor แล้วมาแก้ตรงนี้)
 static const byte VALID_CARD[4] = {0xDE, 0xAD, 0xBE, 0xEF};
 
@@ -47,7 +107,8 @@ static unsigned long personClearTimer = 0;
 static unsigned long authTimeoutTimer = 0;
 static bool smokeAlertSent = false;
 
-void init_wifi_network() {
+void init_wifi_network() 
+{
     WiFi.mode(WIFI_STA);
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
     Serial.print("Connecting to WiFi");
@@ -84,20 +145,6 @@ void send_line_message(const char* message) {
         Serial.printf("[LINE] Failed, Error: %s\n", http.errorToString(httpCode).c_str());
     }
     http.end();
-}
-
-void smartroom_hw_init() {
-    pinMode(PIN_TRIG, OUTPUT);
-    pinMode(PIN_ECHO, INPUT);
-    pinMode(PIN_RELAY_FAN, OUTPUT);
-    pinMode(PIN_BUZZER, OUTPUT);
-    digitalWrite(PIN_RELAY_FAN, LOW);
-    digitalWrite(PIN_BUZZER, LOW);
-
-    dht.begin();
-    rfid.PCD_Init();
-    doorServo.attach(PIN_SERVO);
-    doorServo.detach(); // ป้องกันเซอร์โว 360 หมุนค้างตอนเปิดเครื่อง
 }
 
 long get_distance_cm() {
@@ -139,7 +186,7 @@ void task_environment_update(lv_timer_t *timer) {
                 send_line_message("⚠️ แจ้งเตือนด่วน: พบควันไฟหนาแน่นผิดปกติในห้อง Smart Room!");
                 smokeAlertSent = true;
             }
-        } else {
+        }   else {
             lv_label_set_text(objects.smoke_val, "Smoke: NORMAL");
             digitalWrite(PIN_BUZZER, LOW);
             smokeAlertSent = false;
@@ -237,7 +284,11 @@ void task_door_security(lv_timer_t *timer) {
 void task_door_security(lv_timer_t *timer) {
     LV_UNUSED(timer);
     long dist = get_distance_cm();
+    Student* currentStudent = scanRFID();
 
+    static unsigned long displayTimer = 0; //จับเวลา
+    static bool isShowingData = false;
+    
     if (objects.dist_val != NULL) {
         char dist_str[24];
         snprintf(dist_str, sizeof(dist_str), "Dist: %ld cm", dist);
@@ -246,7 +297,7 @@ void task_door_security(lv_timer_t *timer) {
 
     // 1. ตรวจสอบเงื่อนไขเปิดประตู (เอามือเข้าใกล้ < 10 cm)
     if (currentDoorState == DOOR_LOCKED) {
-        if (dist > 0 && dist < 10) { 
+        if (currentStudent != nullptr || dist > 0 && dist < 10) { 
             doorServo.attach(PIN_SERVO);
             doorServo.write(180); // หมุนเปิด
             delay(300);           // ปรับเวลาหมุนเปิด (ลองลด/เพิ่มได้ตามความกว้างประตู)
@@ -254,8 +305,39 @@ void task_door_security(lv_timer_t *timer) {
 
             currentDoorState = DOOR_OPEN;
             if (objects.door_status) lv_label_set_text(objects.door_status, "DOOR: [ OPEN ]");
-            if (objects.rfid_msg) lv_label_set_text(objects.rfid_msg, "Door Opened (Bypass)");
-            send_line_message("🚪 เปิดประตูด้วยเซนเซอร์ตรวจจับ");
+            if (currentStudent != nullptr) {
+                // กรณีแตะบัตร: โชว์รหัสนักศึกษา/ชื่อ ขึ้นจอและส่ง LINE
+                if (objects.name_txet) {
+                    lv_label_set_text(objects.name_txet, currentStudent->name.c_str());
+                }
+                if (objects.ids_txet) {
+                    lv_label_set_text(objects.ids_txet, currentStudent->student_id.c_str());
+                }
+                if (currentStudent->is_checked_in == false) {
+                    // กรณียังไม่เคยเช็คชื่อ (สแกนครั้งแรก)
+                    String line_msg = "✅ " + currentStudent->student_id + " " + currentStudent->name + " เช็คชื่อเข้าเรียนสำเร็จ";
+                    send_line_message(line_msg.c_str());
+                    
+                    // เปลี่ยนสถานะเป็นเช็คชื่อแล้ว
+                    currentStudent->is_checked_in = true; 
+                } 
+                else 
+                {
+                    // กรณีเคยเช็คชื่อไปแล้ว (แค่ต้องการเปิดประตู)
+                    String line_msg = "🚪 นศ. " + currentStudent->student_id + " " + currentStudent->name + " เปิดประตู";
+                    if (objects.info_text) {
+                        lv_label_set_text(objects.info_text, "Door open by sensor !");
+                    send_line_message(line_msg.c_str());
+                    }
+                }
+            }
+
+            else{
+                if (objects.info_text) {
+                lv_label_set_text(objects.info_text, "Door open by sensor !");
+                }   
+            }
+            
         }
     }
     // 2. มีคนเดินผ่านประตูเข้ามา (< 25 cm)
@@ -264,6 +346,11 @@ void task_door_security(lv_timer_t *timer) {
             currentDoorState = WAITING_LEAVE;
             personClearTimer = millis();
         }
+        if (objects.info_text) {
+            lv_label_set_text(objects.info_text, "Door open by sensor !");
+        }
+        displayTimer = millis(); //เริ่มจับเวลา
+        isShowingData = true;
     }
     // 3. เมื่อคนพ้นระยะ (> 25 cm) เกิน 2 วินาที สั่งปิดประตู
     else if (currentDoorState == WAITING_LEAVE) {
@@ -275,8 +362,14 @@ void task_door_security(lv_timer_t *timer) {
 
             currentDoorState = DOOR_LOCKED;
             if (objects.door_status) lv_label_set_text(objects.door_status, "DOOR: [ CLOSED ]");
-            if (objects.rfid_msg) lv_label_set_text(objects.rfid_msg, "Scan your card...");
+            if (objects.info_text) lv_label_set_text(objects.info_text, "Scan your card...");
         }
+    }
+    if (isShowingData == true && (millis() - displayTimer > 3000)) {
+        if (objects.info_text) {
+            lv_label_set_text(objects.info_text, "Scan Studebt id ..."); // เปลี่ยนข้อความกลับ
+        }
+        isShowingData = false; // ปิดสวิตช์จับเวลา
     }
 }
 

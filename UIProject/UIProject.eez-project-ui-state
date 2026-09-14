@@ -1,6 +1,6 @@
 {
   "navigation": {
-    "selectedUserPageObject": "[UIProject.eez-project]:/userPages/0",
+    "selectedUserPageObject": "[UIProject.eez-project]:/userPages/1",
     "subnavigationSelectedItems": {}
   },
   "layoutModel": {
@@ -69,6 +69,7 @@
           {
             "type": "border",
             "selected": 0,
+            "size": 29.5,
             "location": "bottom",
             "children": [
               {
@@ -115,7 +116,7 @@
             {
               "type": "row",
               "id": "#c63d5e73-de9b-44a6-b23f-75d90abb9d89",
-              "weight": 15,
+              "weight": 31.261770244821093,
               "children": [
                 {
                   "type": "tabset",
@@ -186,11 +187,21 @@
             {
               "type": "tabset",
               "id": "EDITORS",
-              "weight": 65,
-              "selected": 1,
+              "weight": 48.73822975517891,
               "enableDeleteWhenEmpty": false,
               "enableClose": false,
               "children": [
+                {
+                  "type": "tab",
+                  "id": "#8bcfd4d7-1ce6-4276-9efb-ab1f6c244c5c",
+                  "name": "info_page",
+                  "component": "editor",
+                  "config": {
+                    "objectPath": "[UIProject.eez-project]:/userPages/1",
+                    "permanent": false
+                  },
+                  "icon": "svg:page"
+                },
                 {
                   "type": "tab",
                   "id": "#40aa8aa4-e97e-4848-af63-dbc134b77748",
@@ -202,20 +213,8 @@
                     "permanent": false
                   },
                   "icon": "material:settings"
-                },
-                {
-                  "type": "tab",
-                  "id": "#fed9e6a7-94fa-4944-9bed-78e90b7bcdaa",
-                  "name": "home_page",
-                  "component": "editor",
-                  "config": {
-                    "objectPath": "[UIProject.eez-project]:/userPages/0",
-                    "permanent": false
-                  },
-                  "icon": "svg:page"
                 }
-              ],
-              "active": true
+              ]
             },
             {
               "type": "row",
@@ -235,7 +234,8 @@
                       "enableClose": false,
                       "icon": "svg:properties"
                     }
-                  ]
+                  ],
+                  "active": true
                 },
                 {
                   "type": "tabset",
@@ -1075,9 +1075,7 @@
           "14": {},
           "15": {},
           "17": {},
-          "21": {
-            "$selected": true
-          }
+          "21": {}
         }
       },
       "transform": {
@@ -1099,15 +1097,18 @@
       "selectionBack": {
         "0": {
           "0": {},
-          "1": {
+          "1": {},
+          "3": {},
+          "4": {},
+          "6": {
             "$selected": true
           }
         }
       },
       "transform": {
         "translate": {
-          "x": -276.8125,
-          "y": -302.75
+          "x": -274.8125,
+          "y": -238.75
         },
         "scale": 1.75
       },

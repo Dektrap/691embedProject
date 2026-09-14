@@ -134,6 +134,10 @@ void setup()
   Serial.begin(115200);
   // Serial.setDebugOutput(true);
   // while(!Serial);
+  if (!LittleFS.begin(true)) {
+    Serial.println("LittleFS Mount Failed");
+    return;
+  }
   Serial.println("Arduino_GFX LVGL Widgets example");
 
 #ifdef GFX_EXTRA_PRE_INIT
@@ -231,6 +235,8 @@ void setup()
     //  ลงทะเบียน Periodic Tasks ด้วย lv_timer
     lv_timer_create(task_door_security, 100, NULL);        // สแกนบัตร/Ultrasonic ทุก 100ms
     lv_timer_create(task_environment_update, 2000, NULL);   // สภาพแวดล้อม/ควัน ทุก 2 วินาที
+
+    load_csv(); //โหลด csv ขึ้นมา
 
     send_line_message("🟢 Smart Room Controller ออนไลน์และพร้อมทำงานแล้ว");
     Serial.println("Setup done");

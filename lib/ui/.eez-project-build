@@ -11,6 +11,10 @@
     "styles.h",
     "ui.c",
     "ui.h",
+    "ui_image_engine_warning.c",
+    "ui_image_home__1_.c",
+    "ui_image_lightbulb_on.c",
+    "ui_image_lightbulb_slash.c",
     "vars.h"
   ]
 }
