@@ -11,6 +11,16 @@
     "styles.h",
     "ui.c",
     "ui.h",
+    "ui_image_door_closed.c",
+    "ui_image_engine_warning.c",
+    "ui_image_fan.c",
+    "ui_image_fire_smoke.c",
+    "ui_image_home__1_.c",
+    "ui_image_humidity.c",
+    "ui_image_lightbulb_on.c",
+    "ui_image_lightbulb_slash.c",
+    "ui_image_ruler_triangle.c",
+    "ui_image_thermometer_notification.c",
     "vars.h"
   ]
 }
