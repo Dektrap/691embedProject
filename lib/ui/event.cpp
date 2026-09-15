@@ -16,9 +16,9 @@ std::vector<Student> studentList; //เก็บรายชื่อจาก c
 void smartroom_hw_init() {
     pinMode(PIN_TRIG, OUTPUT);
     pinMode(PIN_ECHO, INPUT);
-    pinMode(PIN_RELAY_FAN, INPUT_PULLUP);
+    pinMode(PIN_RELAY_FAN, OUTPUT);
     pinMode(PIN_BUZZER, OUTPUT);
-    // digitalWrite(PIN_RELAY_FAN, HIGH);
+    digitalWrite(PIN_RELAY_FAN, HIGH);
     digitalWrite(PIN_BUZZER, LOW);
     pinMode(PIN_SMOKE_AO, INPUT);
     pinMode(PIN_LED1, OUTPUT);
@@ -141,8 +141,8 @@ void task_environment_update(lv_timer_t *timer) {
         if (smoke_raw > 480) {
             lv_label_set_text(objects.smoke_val, "Smoke: DANGER!");
             digitalWrite(PIN_BUZZER, HIGH);
-            pinMode(PIN_RELAY_FAN, OUTPUT);
-            //digitalWrite(PIN_RELAY_FAN, LOW);
+            // pinMode(PIN_RELAY_FAN, OUTPUT);
+            digitalWrite(PIN_RELAY_FAN, LOW);
 
             if (!smokeAlertSent) {
                 send_line_message("⚠️ แจ้งเตือนด่วน: พบควันไฟหนาแน่นผิดปกติในห้อง Smart Room!");
@@ -268,13 +268,13 @@ void event_fan_handler(lv_event_t *e) {
     if (code == LV_EVENT_CLICKED) {
         if (obj == objects.fan_on) {
             // digitalWrite(PIN_RELAY_FAN, LOW);
-            pinMode(PIN_RELAY_FAN, OUTPUT);
+            // pinMode(PIN_RELAY_FAN, OUTPUT);
             digitalWrite(PIN_RELAY_FAN, LOW);
             if (objects.fan_state) lv_label_set_text(objects.fan_state, "Fan: [ ON ]");
         }
         else if (obj == objects.fan_off) {
-            // digitalWrite(PIN_RELAY_FAN, HIGH);
-            pinMode(PIN_RELAY_FAN, INPUT_PULLUP);
+            digitalWrite(PIN_RELAY_FAN, HIGH);
+            // pinMode(PIN_RELAY_FAN, INPUT_PULLUP);
             if (objects.fan_state) lv_label_set_text(objects.fan_state, "Fan: [ OFF ]");
         }
     }
