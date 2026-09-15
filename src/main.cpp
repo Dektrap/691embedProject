@@ -123,14 +123,14 @@ void my_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 }
 
 #define MQ2_pin 34
-#define buzzerpin 26
+
 
  // รอปรับค่า pin ตามที่ใช้งานจริง
 
 void setup()
 {
-  pinMode(MQ2_pin, INPUT);
-  pinMode(buzzerpin, OUTPUT);
+  
+
   Serial.begin(115200);
   // Serial.setDebugOutput(true);
   // while(!Serial);
@@ -223,15 +223,22 @@ void setup()
 //    //delay(1000);
     
     ui_init();
+    
+    lv_obj_add_event_cb(objects.bt_led1, event_switch_led1_handler, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(objects.bt_led2, event_switch_led2_handler, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(objects.bt_led3, event_switch_led3_handler, LV_EVENT_VALUE_CHANGED, NULL);
 
+    //  ผูก Event ปุ่มกดบนหน้าจอ
+    lv_obj_add_event_cb(objects.fan_on, event_fan_handler, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(objects.fan_off, event_fan_handler, LV_EVENT_CLICKED, NULL);
     //  เริ่มต้นฮาร์ดแวร์ภายนอกและต่อ Wi-Fi
     smartroom_hw_init();
     init_wifi_network();
-
-    //  ผูก Event ปุ่มกดบนหน้าจอ
-    if (objects.fan_on) lv_obj_add_event_cb(objects.fan_on, event_fan_handler, LV_EVENT_CLICKED, NULL);
+    
     if (objects.fan_off) lv_obj_add_event_cb(objects.fan_off, event_fan_handler, LV_EVENT_CLICKED, NULL);
 
+    lv_obj_add_event_cb(objects.home_bt, home_info_bt , LV_EVENT_CLICKED,NULL);
+    lv_obj_add_event_cb(objects.info_bt, home_info_bt , LV_EVENT_CLICKED,NULL);
     //  ลงทะเบียน Periodic Tasks ด้วย lv_timer
     lv_timer_create(task_door_security, 100, NULL);        // สแกนบัตร/Ultrasonic ทุก 100ms
     lv_timer_create(task_environment_update, 2000, NULL);   // สภาพแวดล้อม/ควัน ทุก 2 วินาที
