@@ -1,0 +1,28 @@
+event.cpp
+
+void event_switch_led1_handler(lv_event_t *e) {
+    lv_event_code_t code = lv_event_get_code(e);
+    lv_obj_t *obj = lv_event_get_target(e);
+
+    // สำหรับ Switch ใน LVGL จะใช้ Event: LV_EVENT_VALUE_CHANGED
+    if (code == LV_EVENT_VALUE_CHANGED) {
+        // เช็คว่าสวิตช์ถูกเปิด (ON) อยู่หรือไม่
+        bool is_checked = lv_obj_has_state(obj, LV_STATE_CHECKED);
+
+        if (is_checked) {
+            // เมื่อสวิตช์เลื่อนไปที่ ON -> เปลี่ยนเป็นรูปไฟติด
+            if (objects.img_led1_on)  lv_obj_clear_flag(objects.img_led1_on, LV_OBJ_FLAG_HIDDEN); // แสดง (Show)
+            if (objects.img_led1_off) lv_obj_add_flag(objects.img_led1_off, LV_OBJ_FLAG_HIDDEN);   // ซ่อน (Hide)
+            // สั่งขา GPIO เปิดไฟจริง (เช่น digitalWrite(PIN_LED, HIGH);)
+        } else {
+            if (objects.img_led1_on)  lv_obj_add_flag(objects.img_led1_on, LV_OBJ_FLAG_HIDDEN);   // ซ่อน (Hide)
+            if (objects.img_led1_off) lv_obj_clear_flag(objects.img_led1_off, LV_OBJ_FLAG_HIDDEN); // แสดง (Show)
+            // สั่งขา GPIO ปิดไฟจริง (เช่น digitalWrite(PIN_LED, LOW);)
+        }
+    }
+}
+
+
+
+main
+    if (objects.bt_led1) {lv_obj_add_event_cb(objects.bt_led1, event_switch_led1_handler, LV_EVENT_VALUE_CHANGED, NULL);}
